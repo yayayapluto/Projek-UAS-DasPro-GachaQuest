@@ -3,32 +3,204 @@
 Berlaku untuk semua anggota. Rencana induk:
 `rencana-pembagian-tugas-5-orang.md`.
 
-## Prasyarat Windows
+Panduan ini ditulis untuk orang yang belum pernah memakai Git atau compiler.
+Setiap perintah dijelaskan: apa yang diketik, output normalnya apa, dan apa yang
+harus dilakukan kalau outputnya berbeda.
 
-- Git for Windows.
-- MSYS2 dengan `gcc`, `make`, `sh`, `rm`, `grep`, `cp`.
-- Tambahkan `C:\msys64\usr\bin` ke `PATH`.
-- Untuk `make debug`, gunakan clang64:
-  `C:\msys64\clang64\bin\clang.exe`.
-- Jalankan build dari root repo, bukan dari subfolder `src/`.
+## Cara membaca panduan
 
-Cek sekali:
+1. Buka terminal di folder kerja.
+2. Ketik satu perintah, tekan Enter.
+3. Bandingkan output dengan bagian **Expected**.
+4. Kalau sama, lanjut. Kalau berbeda, baca **Kalau error**.
+5. Jangan lanjut ke langkah berikutnya kalau langkah sekarang belum benar.
+
+Jangan menyalin semua perintah sekaligus. Satu perintah, satu pemeriksaan.
+
+## Cek alat
+
+Buka PowerShell, CMD, atau Windows Terminal. Ketik satu per satu:
 
 ```sh
 git --version
+```
+
+Expected:
+
+```text
+git version 2.x.x.windows.x
+```
+
+```sh
 gcc --version
+```
+
+Expected:
+
+```text
+gcc (Rev...) ...
+```
+
+```sh
 make --version
+```
+
+Expected:
+
+```text
+GNU Make 4.x
+```
+
+```sh
 sh --version
 ```
 
-Expected: keempat perintah mencetak versi, bukan `command not found`.
+Expected:
+
+```text
+GNU bash, version ...
+```
+
+Kalau keempatnya mencetak versi, lanjut ke **Setup repo baru**.
+
+## Kalau alat belum ada
+
+Jangan menebak. Cek satu per satu. Setelah memasang, **tutup terminal lalu buka
+terminal baru**, karena `PATH` lama tidak berubah.
+
+### `git` tidak ditemukan
+
+Gejala:
+
+```text
+git : The term 'git' is not recognized...
+```
+
+atau:
+
+```text
+'git' is not recognized as an internal or external command
+```
+
+Solusi:
+
+1. Unduh Git for Windows dari `https://git-scm.com/download/win`.
+2. Jalankan installer, pilih opsi default.
+3. Setelah selesai, tutup semua terminal.
+4. Buka PowerShell baru.
+5. Jalankan `git --version` lagi.
+
+Kalau masih gagal, cek `PATH` Windows:
+
+1. Tekan `Win + R`, ketik `sysdm.cpl`, Enter.
+2. Buka tab **Advanced** → **Environment Variables**.
+3. Di **User variables**, pilih `Path` → **Edit**.
+4. Pastikan ada `C:\Program Files\Git\cmd`.
+5. Kalau belum ada, klik **New**, isi path itu, lalu OK.
+6. Tutup dan buka ulang terminal.
+
+### `gcc` tidak ditemukan
+
+Gejala:
+
+```text
+gcc : The term 'gcc' is not recognized...
+```
+
+atau:
+
+```text
+make: cc: Command not found
+```
+
+Solusi:
+
+1. Unduh dan pasang MSYS2 dari `https://www.msys2.org/`.
+2. Gunakan lokasi default `C:\msys64`.
+3. Buka **MSYS2 UCRT64** dari Start Menu.
+4. Jalankan:
+
+```sh
+pacman -Syu
+```
+
+5. Kalau diminta menutup jendela, tutup, lalu buka **MSYS2 UCRT64** lagi.
+6. Jalankan:
+
+```sh
+pacman -S --needed base-devel mingw-w64-ucrt-x86_64-gcc
+```
+
+7. Ketik `Y` kalau diminta konfirmasi.
+8. Tutup MSYS2.
+9. Tambahkan `C:\msys64\usr\bin` dan `C:\msys64\ucrt64\bin` ke `PATH`
+   Windows dengan cara yang sama seperti langkah Git.
+10. Buka PowerShell baru, jalankan `gcc --version`.
+
+Kalau `gcc` hanya jalan di jendela MSYS2 tetapi tidak di PowerShell, berarti
+`PATH` Windows belum benar. Ulangi langkah 9.
+
+### `make` tidak ditemukan
+
+Gejala:
+
+```text
+make : The term 'make' is not recognized...
+```
+
+Solusi:
+
+1. Buka **MSYS2 UCRT64**.
+2. Jalankan:
+
+```sh
+pacman -S --needed make
+```
+
+3. Pastikan `C:\msys64\usr\bin` ada di `PATH` Windows.
+4. Tutup dan buka ulang terminal.
+5. Jalankan `make --version`.
+
+Kalau `make` ada di MSYS2 tetapi tidak di PowerShell, masalahnya `PATH`, bukan
+instalasi.
+
+### `sh` tidak ditemukan
+
+Gejala:
+
+```text
+sh : The term 'sh' is not recognized...
+```
+
+Solusi:
+
+1. Pastikan MSYS2 sudah terpasang.
+2. Tambahkan `C:\msys64\usr\bin` ke `PATH` Windows.
+3. Tutup dan buka ulang terminal.
+4. Jalankan `sh --version`.
+
+`sh` dipakai `make test` dan `tests/run_tests.sh`. Tanpa `sh`, build bisa jalan
+tetapi test tidak.
+
+### `pacman` tidak ditemukan
+
+Gejala:
+
+```text
+pacman : The term 'pacman' is not recognized...
+```
+
+Artinya kamu menjalankan perintah MSYS2 dari PowerShell. `pacman` hanya ada di
+dalam jendela MSYS2. Buka **MSYS2 UCRT64** dari Start Menu, lalu jalankan
+`pacman` di sana.
 
 ## Setup repo baru
 
 1. Buat folder kerja.
-2. Inisialisasi git.
-3. Buat branch utama.
-4. Buat branch kerja.
+2. Masuk ke folder.
+3. Inisialisasi Git.
+4. Buat branch `main`.
+5. Buat branch kerja `feat/scaffold`.
 
 ```sh
 mkdir Projek-UAS-DasPro-GachaQuest
@@ -56,6 +228,15 @@ Expected:
 feat/scaffold
 ```
 
+Kalau error:
+
+- `fatal: not a git repository` → kamu belum ada di folder repo. Jalankan
+  `pwd` lalu `cd` ke folder yang benar.
+- `fatal: a branch named 'feat/scaffold' already exists` → branch sudah ada.
+  Jalankan `git checkout feat/scaffold`.
+- `fatal: not a valid object name: 'main'` → belum ada commit. Buat commit
+  pertama dulu.
+
 ## Identitas commit
 
 Sekali per komputer:
@@ -71,7 +252,10 @@ Cek:
 git config --global --list
 ```
 
-Expected: `user.name` dan `user.email` muncul.
+Expected: ada baris `user.name=...` dan `user.email=...`.
+
+Kalau `git commit` menolak dengan pesan `Please tell me who you are`, jalankan
+dua perintah di atas, lalu commit lagi.
 
 ## Alur harian
 
@@ -84,17 +268,31 @@ git checkout feat/nama-modul
 git rebase main
 ```
 
-Expected: tidak ada konflik. Jika ada konflik, selesaikan dulu sebelum
-mengubah kode.
+Expected: tidak ada konflik. Kalau ada konflik, selesaikan dulu sebelum
+mengubah kode. Langkahnya ada di bagian **Konflik**.
 
-Sebelum commit:
+Kalau `git pull` gagal karena belum ada remote:
+
+```text
+fatal: No remote repository specified...
+```
+
+Itu normal untuk repo lokal baru. Lanjutkan pekerjaan; remote dibuat P1.
+
+Sebelum commit, lihat apa yang berubah:
 
 ```sh
 git status
 git diff
 ```
 
-Expected: hanya file milikmu yang berubah.
+Expected:
+
+- `git status` menampilkan file yang berubah.
+- `git diff` menampilkan isi perubahan.
+
+Kalau `git status` bersih tetapi kamu merasa sudah mengubah file, berarti file
+tersimpan di folder lain. Cek `pwd`.
 
 Commit:
 
@@ -110,6 +308,12 @@ Expected:
  3 files changed, ...
 ```
 
+Kalau error:
+
+- `nothing to commit` → tidak ada perubahan yang ditambahkan. Cek `git status`.
+- `pathspec ... did not match` → path file salah. Salin path dari `git status`.
+- `Please tell me who you are` → isi identitas Git.
+
 Push:
 
 ```sh
@@ -117,6 +321,15 @@ git push -u origin feat/nama-modul
 ```
 
 Expected: branch baru muncul di remote.
+
+Kalau error:
+
+- `remote origin already exists` → remote sudah ada. Jalankan
+  `git remote -v` untuk melihat.
+- `Authentication failed` → login GitHub belum benar. Jalankan
+  `gh auth login` atau login lewat Git Credential Manager.
+- `Updates were rejected` → remote punya commit yang belum kamu punya.
+  Jalankan `git pull --rebase`, selesaikan konflik, lalu push lagi.
 
 ## Aturan branch
 
@@ -144,6 +357,9 @@ Expected:
 Switched to a new branch 'feat/dungeon'
 ```
 
+Kalau error `fatal: invalid reference: contract-v1`, tag belum dibuat. Tunggu
+P1, jangan membuat tag sendiri.
+
 ## Urutan merge
 
 1. `feat/scaffold` → `main`, tag `contract-v1`.
@@ -163,7 +379,7 @@ Jika `git rebase` berhenti:
 git status
 ```
 
-Expected: daftar file konflik.
+Expected: daftar file konflik dengan status `both modified`.
 
 Aturan:
 
@@ -184,6 +400,19 @@ git rebase --abort
 ```
 
 Expected: kembali ke kondisi sebelum rebase.
+
+Kalau bingung melihat tanda konflik:
+
+```text
+<<<<<<< HEAD
+kode kamu
+=======
+kode orang lain
+>>>>>>> nama-branch
+```
+
+Jangan menghapus keduanya tanpa membaca. Pilih atau gabungkan dengan benar,
+lalu hapus tiga penanda itu.
 
 ## Review
 
@@ -221,9 +450,19 @@ contract-v1
 ui-ready
 ```
 
+Kalau tag sudah ada, `git tag` akan menolak. Jangan hapus tag lama tanpa
+persetujuan P1.
+
 ## Kompilasi
 
-Semua perintah dari root repo.
+Semua perintah dari root repo, tempat `Makefile` berada. Cek dulu:
+
+```sh
+pwd
+ls Makefile
+```
+
+Expected: `Makefile` terlihat. Kalau tidak, kamu di folder yang salah.
 
 ### Build
 
@@ -238,7 +477,18 @@ gcc -std=c11 -Wall -Wextra -Wpedantic ... -o bin/game ...
 # tidak ada warning
 ```
 
-Jika ada warning, jangan lanjut. Perbaiki dulu.
+Kalau error:
+
+- `make: *** No targets specified and no makefile found` → tidak ada
+  `Makefile` di folder itu. `cd` ke root repo.
+- `gcc: command not found` → `gcc` belum masuk `PATH`. Ulangi bagian
+  **`gcc` tidak ditemukan**.
+- `No such file or directory` → ada file yang belum dibuat. Baca nama file di
+  pesan error; minta pemilik modul melengkapinya.
+- `undefined reference to ...` → ada fungsi yang belum diimplementasi atau
+  file `.c` belum masuk `Makefile`. Jangan mengubah `Makefile` sendiri kalau
+  bukan P1.
+- `warning:` → jangan diabaikan. Perbaiki file yang disebut.
 
 ### Jalankan
 
@@ -254,6 +504,8 @@ Atau:
 bin/game
 ```
 
+Kalau `bin/game` tidak ada, build gagal. Baca error `make` dulu.
+
 ### Test
 
 ```sh
@@ -266,7 +518,14 @@ Expected:
 === Ringkasan: ... lulus, 0 gagal ===
 ```
 
-Jika ada `GAGAL`, baca nama driver dan file input yang disebut.
+Kalau ada `GAGAL`:
+
+1. Baca nama driver dan file input yang disebut.
+2. Jalankan driver itu sendiri, misalnya `bin/t_dungeon`.
+3. Jangan mengubah test agar lulus. Perbaiki kode.
+4. Kalau tidak paham, kirim potongan output ke pemilik modul.
+
+Kalau `sh: command not found`, ulangi bagian **`sh` tidak ditemukan**.
 
 ### Debug sanitizer
 
@@ -277,8 +536,13 @@ make debug
 Expected: build dan seluruh test berjalan dengan AddressSanitizer/UBSan,
 tanpa laporan memory error.
 
-Di Windows, target ini memakai clang64. Jika gagal, cek
-`C:\msys64\clang64\bin\clang.exe` ada.
+Di Windows, target ini memakai clang64. Kalau gagal:
+
+1. Cek `C:\msys64\clang64\bin\clang.exe` ada.
+2. Kalau tidak ada, buka MSYS2 UCRT64 dan jalankan
+   `pacman -S --needed mingw-w64-clang-x86_64-toolchain`.
+3. Kalau masih gagal, lewati `make debug` dan pakai `make test`; jangan
+   mengubah `CC_SAN` sendiri.
 
 ### Preview UI
 
@@ -288,6 +552,12 @@ make preview
 
 Expected: `bin/ui_preview` tampil. Tekan Esc atau ikuti footer untuk keluar.
 
+Kalau layar kosong:
+
+- Jalankan dari Windows Terminal, bukan output yang di-pipe.
+- Pastikan terminal minimal 50x20.
+- Kalau masih kosong, laporkan ke P1 dengan nama terminal yang dipakai.
+
 ### Bersihkan
 
 ```sh
@@ -296,17 +566,17 @@ make clean
 
 Expected: folder `bin/` hilang. Build berikutnya dari nol.
 
-## Troubleshooting
+Kalau `Permission denied`, tutup game yang masih berjalan, lalu ulangi.
 
-| Gejala | Cek |
-| --- | --- |
-| `make: command not found` | `C:\msys64\usr\bin` belum masuk `PATH` |
-| `sh: command not found` | Paket MSYS2 belum lengkap; buka MSYS2 shell |
-| `gcc: command not found` | `gcc` belum terpasang di MSYS2 |
-| Warning `-Wpedantic` | Jangan abaikan; perbaiki kode |
-| `Permission denied` saat `make clean` | Game masih berjalan; tutup dulu |
-| Input aneh di mintty | Jalankan dari Windows Terminal, PowerShell, atau CMD |
-| Data tidak ditemukan | Jalankan dari root repo, bukan dari `bin/` |
+## Kalau bingung
+
+Ikuti aturan 30 menit:
+
+1. Baca ulang langkah dan **Expected**.
+2. Coba solusi di bagian **Kalau error**.
+3. Kalau masih macet, tanya pemilik modul atau P1.
+4. Kirim: perintah yang dijalankan, output lengkap, dan langkah yang sudah
+   dicoba. Jangan kirim "tidak bisa" saja.
 
 ## Aturan keselamatan git
 

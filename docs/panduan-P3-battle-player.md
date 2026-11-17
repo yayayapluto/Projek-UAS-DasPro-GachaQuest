@@ -101,6 +101,20 @@ $ bin/game < tests/in_s18.txt
 # ketiganya sesuai harapan
 ```
 
+## Kalau error
+
+| Gejala | Arti | Solusi |
+| --- | --- | --- |
+| `t_battle` gagal di rentang damage | Rumus atau rentang RNG salah | Baca test, cek formula dan `plat_rand() % 4` |
+| Battle tidak pernah selesai | Loop tidak punya kondisi keluar | Pastikan HP monster/pemain dicek setiap giliran |
+| HP pemain 0 tetapi tidak game over | Layar game over belum dipanggil | Panggil `battleGameOverScreen` di jalur kalah |
+| Potion tidak berkurang | Stok tidak diperbarui | Cek urutan validasi dan pengurangan |
+| `undefined reference to calculateDamage` | File belum masuk Makefile | Hubungi P1, jangan edit Makefile |
+| Status kosong | Layar belum digambar | Cek `ui_frame`, `ui_flush`, dan pemanggilan `showStatus` |
+| Battle dari dungeon berbeda hasil | Dua jalur memakai aturan berbeda | Pastikan dungeon memanggil fungsi battle yang sama |
+
+Kalau `make` gagal karena UI, jangan memperbaiki `ui.c`. Kirim error ke P1.
+
 ## Yang tidak boleh
 
 - Memakai `rand()`.

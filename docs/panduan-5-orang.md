@@ -34,6 +34,56 @@ ANSI, `printf` layar, atau `ui.c`.
 5. Semua orang menjalankan `make test` dan demo.
 6. P1 menjalankan paritas dan menutup dokumentasi.
 
+## Sebelum mulai
+
+Cek alat di terminal. Jalankan satu per satu, jangan sekaligus:
+
+```sh
+git --version
+gcc --version
+make --version
+sh --version
+```
+
+Expected: keempatnya mencetak versi.
+
+Kalau ada yang menjawab `command not found`:
+
+1. Jangan lanjut.
+2. Buka `panduan-0-git-dan-kompilasi.md`.
+3. Cari bagian **Kalau alat belum ada**.
+4. Ikuti solusi untuk alat yang hilang.
+5. Tutup terminal, buka lagi, cek ulang.
+
+Kalau semua alat ada, lanjut membaca panduan peran.
+
+## Istilah singkat
+
+| Istilah | Arti sederhana |
+| --- | --- |
+| repo | folder project yang dilacak Git |
+| branch | salinan kerja untuk satu tugas |
+| commit | menyimpan perubahan ke riwayat Git |
+| push | mengirim commit ke GitHub |
+| build | mengubah kode menjadi program |
+| test | menjalankan pemeriksaan otomatis |
+| modul | folder/file untuk satu fitur |
+
+## Kalau bingung
+
+Ikuti aturan 30 menit:
+
+1. Baca ulang langkah dan **Expected**.
+2. Coba solusi di bagian **Kalau error** pada panduan peran.
+3. Kalau masih macet, tanya P1 atau pemilik modul.
+4. Kirim pesan berisi:
+   - perintah yang dijalankan,
+   - output lengkap dari terminal,
+   - langkah yang sudah dicoba,
+   - nama file yang sedang diedit.
+
+Jangan mengirim "tidak bisa" tanpa output. Itu membuat penolong menebak.
+
 ## Aturan bukti
 
 Setiap langkah dianggap selesai hanya jika ada bukti:
