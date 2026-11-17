@@ -1,0 +1,15 @@
+# Build and runtime artifacts (muncul saat peserta mulai mengerjakan)
+bin/
+*.o
+*.exe
+data/save*.txt
+data/leaderboard.txt
+data/autosave.dat
+data/autosave.bak
+data/session.lock
+data/crash.log
+
+# Editor/OS
+.DS_Store
+Thumbs.db
+*.swp
