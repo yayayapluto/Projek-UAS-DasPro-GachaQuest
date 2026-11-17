@@ -137,6 +137,21 @@ $ bin/game < tests/in_s16.txt
 - Dungeon bisa dimainkan di terminal dan mode pipa.
 - Tidak ada input terbaca selama animasi chest.
 
+## Kalau error
+
+| Gejala | Arti | Solusi |
+| --- | --- | --- |
+| `t_dungeon` mencetak `FAIL: ... line ...` | Satu pemeriksaan tidak lolos | Baca kondisi di baris itu, jalankan ulang, periksa fungsi terkait |
+| `Segmentation fault` | Akses array di luar batas | Jalankan `make debug`, cari baris terakhir sebelum crash |
+| Game berhenti menerima tombol | Loop menunggu input yang tidak pernah dibaca | Pastikan frame digambar dan `ui_flush` dipanggil sebelum menunggu tombol |
+| Peta kosong atau border saja | Frame belum di-flush atau koordinat salah | Cek `ui_frame`, `ui_flush`, dan offset kamera |
+| Pemain tidak bergerak | Tombol tidak cocok atau posisi tidak diperbarui | Cetak posisi sementara lewat `ui_message`, cek mapping tombol |
+| Dungeon tidak muncul dari Hub | `runDungeon` belum dipanggil | Hubungi P1; jangan edit `main.c` |
+| `undefined reference` ke fungsi dungeon | File belum masuk Makefile | Hubungi P1, jangan edit Makefile |
+
+Kalau butuh fungsi UI yang belum ada, minta P1 menambahkannya. Jangan memanggil
+`term_*` atau menulis ANSI sendiri.
+
 ## Yang tidak boleh
 
 - Menambah fungsi baru di luar header tanpa persetujuan P1.

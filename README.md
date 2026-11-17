@@ -21,12 +21,47 @@ Baca berurutan:
    - `docs/panduan-P4-gacha-inventory.md`
    - `docs/panduan-P5-shop-storage.md`
 
+## Pembagian tugas
+
+| Orang | Peran | Modul yang dikerjakan | Panduan |
+| --- | --- | --- | --- |
+| P1 | Scaffold, UI lib, platform, integrator | `Makefile`, `src/ui`, `src/platform`, `src/util`, `main.c` | [P1](docs/panduan-P1-scaffold-ui.md) |
+| P2 | Dungeon | `src/dungeon` | [P2](docs/panduan-P2-dungeon.md) |
+| P3 | Battle dan player | `src/player`, `src/battle` | [P3](docs/panduan-P3-battle-player.md) |
+| P4 | Gacha dan inventory | `src/gacha`, `src/inventory` | [P4](docs/panduan-P4-gacha-inventory.md) |
+| P5 | Shop, storage, leaderboard | `src/shop`, `src/storage` | [P5](docs/panduan-P5-shop-storage.md) |
+
+P3, P4, dan P5 pemula. Mereka hanya memakai UI lib dari P1. Mereka tidak
+menyentuh terminal, ANSI, atau `printf` layar.
+
 ## Prasyarat
 
 - Git for Windows.
 - MSYS2 dengan `gcc`, GNU `make`, dan `sh`.
 - `C:\msys64\usr\bin` masuk `PATH`.
 - Windows Terminal, PowerShell, atau CMD untuk menjalankan game.
+
+Cek alat satu per satu di terminal:
+
+```sh
+git --version
+gcc --version
+make --version
+sh --version
+```
+
+Kalau salah satu menjawab `command not found`, jangan lanjut. Buka
+`docs/panduan-0-git-dan-kompilasi.md` bagian **Kalau alat belum ada**.
+
+## Kalau macet
+
+1. Baca ulang langkah dan bagian **Expected**.
+2. Baca bagian **Kalau error** di panduan peran.
+3. Kalau masih macet, tanya P1 atau pemilik modul.
+4. Kirim: perintah yang dijalankan, output lengkap, dan langkah yang sudah
+   dicoba.
+
+Jangan menyalin semua perintah sekaligus. Satu perintah, satu pemeriksaan.
 
 ## Aturan
 

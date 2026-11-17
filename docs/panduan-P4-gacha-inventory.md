@@ -97,6 +97,20 @@ Expected:
 - `make` tanpa warning.
 - Gacha dan inventory berjalan di terminal dan mode pipa.
 
+## Kalau error
+
+| Gejala | Arti | Solusi |
+| --- | --- | --- |
+| `t_gacha` gagal di jumlah rarity | Bobot atau pity salah | Cek ambang roll dan reset pity |
+| Gold berkurang tetapi item tidak masuk | Inventory penuh tidak di-refund | Kembalikan biaya pull saat `pullOnce` mengembalikan 0 |
+| Duplikat tidak menjadi gold | Pencarian ID gagal | Cek `findItemInInventory` dan harga rarity |
+| Inventory kosong padahal ada item | Katalog tidak termuat atau `itemCount` salah | Cek load katalog dan jumlah item |
+| Daftar tidak bisa di-scroll | `ui_pick_row` tidak dipakai | Ganti loop manual dengan pemilih baris dari UI lib |
+| Item terpasang bisa dijual | Pengecekan equip salah | Bandingkan ID item dengan slot senjata/armor |
+| `undefined reference` ke fungsi gacha | File belum masuk Makefile | Hubungi P1 |
+
+Jangan mengubah test agar lulus. Perbaiki logika di modul sendiri.
+
 ## Yang tidak boleh
 
 - Memakai `rand()`.

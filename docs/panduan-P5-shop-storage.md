@@ -98,6 +98,21 @@ Expected:
 - `make` tanpa warning.
 - Tidak ada crash saat file data hilang atau rusak.
 
+## Kalau error
+
+| Gejala | Arti | Solusi |
+| --- | --- | --- |
+| `t_storage` gagal setelah load | Urutan field atau seed salah | Cocokkan format 15 field dengan PRD, cek seed sebelum ID senjata |
+| `Gagal memuat` padahal file ada | Format file rusak atau path salah | Jalankan dari root repo, cek `data/save_1.txt` |
+| Save tidak ditemukan | Slot atau path salah | Cek `saveSlotPath` dan folder `data/` |
+| Leaderboard tidak urut | Sorting atau pemotongan salah | Urutkan menurun, simpan 10, tampil 5 |
+| Crash saat file rusak | Tidak ada validasi `fopen`/isi | Tambahkan pemeriksaan dan pesan gagal |
+| Item terpasang bisa dijual | Pengecekan equip salah | Bandingkan ID dengan slot senjata/armor |
+| `undefined reference` ke storage | File belum masuk Makefile | Hubungi P1 |
+
+Jangan menghapus file data untuk membuat test lulus. Perbaiki validasi dan
+format.
+
 ## Yang tidak boleh
 
 - Mengubah urutan field save.

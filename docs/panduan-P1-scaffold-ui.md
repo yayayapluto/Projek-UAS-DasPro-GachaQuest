@@ -182,6 +182,25 @@ Manual:
 - Resize tidak merusak layout.
 - Pipeline input tetap berjalan tanpa warna dan tanpa clear screen.
 
+## Kalau error
+
+Baca pesan error dari baris pertama. Jangan hanya melihat baris terakhir.
+
+| Gejala | Arti | Solusi |
+| --- | --- | --- |
+| `'make' is not recognized` | `make` belum ada di `PATH` | Ikuti bagian `make` tidak ditemukan di `panduan-0-git-dan-kompilasi.md` |
+| `make: *** No targets specified and no makefile found` | Tidak ada `Makefile` di folder itu | `cd` ke root repo, cek `ls Makefile` |
+| `make: *** No rule to make target 'bin/game'` | Target atau daftar `MODUL` di Makefile salah | Periksa nama file dan path include |
+| `undefined reference to 'ui_init'` | File `.c` belum ada atau belum masuk Makefile | Tambahkan stub atau file ke `MODUL` |
+| `fatal error: ui.h: No such file or directory` | Include path salah | Cek `INC` di Makefile, jangan ubah header |
+| `bin/game` langsung keluar | `main` masih stub | Isi `main` atau cek return |
+| Preview kosong | Terminal terlalu kecil atau bukan TTY | Pakai Windows Terminal, minimal 50x20 |
+| Ctrl+C merusak terminal | Restore terminal belum jalan | Cek handler sinyal dan `ui_shutdown` |
+| `git tag` menolak | Tag sudah ada | Jangan hapus tag; cek `git tag` |
+
+Kalau `make` gagal karena file modul orang lain, jangan memperbaiki file itu
+sendiri. Kirim error ke pemilik modul.
+
 ## Aturan review
 
 - Setiap PR P1 harus lulus `make` dan driver terkait.

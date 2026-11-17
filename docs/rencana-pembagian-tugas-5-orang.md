@@ -32,6 +32,19 @@ Tidak ada file `.c`, `.h`, `Makefile`, data, atau test di starter kit. Semua itu
 disalin peserta dari repo referensi mengikuti panduan P1. Starter kit hanya
 mengatur siapa mengerjakan apa, urutan kerja, dan bukti yang harus muncul.
 
+## Untuk Peserta Awam
+
+Panduan ditulis dengan asumsi pembaca belum pernah memakai Git atau compiler.
+
+- Setiap perintah diikuti **Expected** dan **Kalau error**.
+- Alat yang belum terpasang ditangani di `panduan-0-git-dan-kompilasi.md`
+  bagian **Kalau alat belum ada**.
+- Jangan menyalin semua perintah sekaligus. Satu perintah, satu pemeriksaan.
+- Jangan lanjut kalau output berbeda dari **Expected**.
+- Kalau macet lebih dari 30 menit, kirim perintah, output lengkap, dan langkah
+  yang sudah dicoba ke P1 atau pemilik modul.
+- Panduan tidak memberi kode solusi. Peserta menulis implementasi sendiri.
+
 ## Pembagian Peran
 
 | Orang | Peran | Modul yang dikerjakan |
@@ -199,6 +212,10 @@ find . -maxdepth 2 -type f | sort
 test ! -e Makefile
 test -z "$(find . -name '*.c' -o -name '*.h')"
 grep -R "Expected" docs | wc -l
+for f in docs/panduan-P*.md; do
+  grep -q "Kalau error" "$f" || echo "TANPA KALAU ERROR: $f"
+done
+grep -q "Pembagian tugas" README.md || echo "README TANPA TABEL"
 ```
 
 Expected:
@@ -206,6 +223,8 @@ Expected:
 - Hanya `README.md`, `.gitignore`, dan delapan file `docs/*.md`.
 - Tidak ada `Makefile`, `.c`, atau `.h`.
 - `grep "Expected"` menghasilkan angka lebih dari nol.
+- Semua panduan P1-P5 punya bagian `Kalau error`.
+- README punya tabel pembagian tugas.
 - `panduan-5-orang.md` bisa dibuka dan semua tautannya valid.
 
 Uji pemahaman manual:
